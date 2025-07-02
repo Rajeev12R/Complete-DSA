@@ -1,58 +1,73 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-class node{
-    public:
+class node {
+public:
     int data;
     node* next;
 
-    node(int val){
+    node(int val) {
         data = val;
         next = NULL;
     }
 };
 
-void insertatend(node* &head, int val){
+void insertatbegin(node* &head, int val) {
     node* newE = new node(val);
-    if(head == NULL){
+    newE->next = head;
+    head = newE;
+}
+
+void insertatend(node* &head, int val) {
+    node* newE = new node(val);
+    if (head == NULL) {
         head = newE;
         return;
     }
     node* temp = head;
-    while(temp->next != NULL){
-        temp = temp->next;
+    while (temp->next != NULL) {
+        temp = temp->next; 
     }
     temp->next = newE;
 }
-void printlist(node* head){
+
+void printlist(node* head) {
     node* temp = head;
-    while(temp != NULL){
+    while (temp != NULL) {
         cout << temp->data << " ";
         temp = temp->next;
     }
     cout << endl;
 }
-int main(){
+
+int main() {
     int n;
     cin >> n;
     vector<int> arr;
 
-    for(int i = 0; i < n; i++){
+    for (int i = 0; i < n; i++) {
         int val;
         cin >> val;
         arr.push_back(val);
     }
 
     node* head = NULL;
-    for(int i = 0; i < n; i++){
+
+    for (int i = 0; i < n; i++) {
         insertatend(head, arr[i]);
     }
+
+    for (int i = 0; i < n; i++) {
+        insertatbegin(head, arr[i]);
+    }
+
     int newEle;
     cin >> newEle;
     insertatend(head, newEle);
+    insertatbegin(head, newEle);
 
+    // Print final list
     printlist(head);
 
-
-return 0;
+    return 0;
 }
